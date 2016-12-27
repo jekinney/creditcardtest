@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Credit Card Validation</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body {
+				background-color: #DCDCDC;
+			}
+			main {
+				margin-top: 100px;
+			}
+		</style>
+	</head>
+	<body class="container">
+		<main class="row">
+			<section class="col-md-4 col-md-offset-4">
+				<form class="panel panel-default">
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="number" class="control-label">Credit Card Number</label>
+							<input type="text" name="number" id="number" class="form-control" onblur="cardnumber(this)"><span class="help-block"></span>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-3">
+								<label for="cvc" class="control-label">CVC</label>
+								<input type="text" name="cvc" id="cvc" class="form-control">
+								<span class="help-block"></span>
+							</div>
+							<div class="form-group col-sm-4">
+								<label for="expDate" class="control-label">Exp Month</label>
+								<select name="month" id="month" class="form-control">
+									<option value="01" selected="true">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-4">
+								<label for="year" class="control-label">Exp Year</label>
+								<select name="year" id="year" class="form-control">
+									<option value="2017" selected="true">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+									<option value="2021">2021</option>
+									<option value="2022">2022</option>
+									<option value="2023">2023</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+			</section>
+		</main>
+
+		<script>
+			function cardnumber(cardNumber)  
+			{  
+				var cardTypes = [
+					{match: /^(?:3[47][0-9]{13})$/, type: 'American Express'},  
+					{match: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/, type: 'Discover'},
+					{match: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, type: 'Visa'},
+					{match: /^(?:5[1-5][0-9]{14})$/, type: 'Master Card'}
+				];
+
+				cardNumber.parentNode.classList.remove('has-error');
+				cardNumber.parentNode.classList.remove('has-success');
+				cardNumber.nextSibling.innerHTML = '';
+
+				for(var key in cardTypes) {
+					if(cardNumber.value.match(cardTypes[key].match)) {
+						cardNumber.parentNode.classList.add('has-success');
+						cardNumber.nextSibling.innerHTML = 'Valid Card Number from '+cardTypes[key].type;
+						return true;
+					}
+				}
+				cardNumber.nextSibling.innerHTML = 'Sorry, Invalid Card Number';
+				cardNumber.parentNode.classList.add('has-error');
+				return false;
+			}  
+		</script>
+	</body>
+</html>
